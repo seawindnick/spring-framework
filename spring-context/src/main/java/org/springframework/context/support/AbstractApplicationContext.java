@@ -445,12 +445,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return new StandardEnvironment();
 	}
 
+	/**
+	 * TODO hushiye refresh()
+	 * @throws BeansException
+	 * @throws IllegalStateException
+	 */
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			// 获取 beanFactory 存储bean对象
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
@@ -458,12 +464,15 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				//TODO hushiye 执行 postProcessBeanFactory 方法
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				//扩展和增强功能
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				//注册 beanPostProcessors 信息
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -519,6 +528,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment
+		//初始化属性资源
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable

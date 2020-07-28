@@ -227,7 +227,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected <T> T doGetBean(
 			final String name, final Class<T> requiredType, final Object[] args, boolean typeCheckOnly)
 			throws BeansException {
-
+		//获取BeanName名称信息
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
@@ -1386,6 +1386,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * <p>This allows the bean factory to optimize its caching for repeated
 	 * creation of the specified bean.
 	 * @param beanName the name of the bean
+	 *
+	 * 标记bean已经被创建
 	 */
 	protected void markBeanAsCreated(String beanName) {
 		if (!this.alreadyCreated.containsKey(beanName)) {
